@@ -3,7 +3,7 @@ LABEL maintainer="Henrique Silva <henrique@dryworks.com.br>"
 LABEL version="1.0"
 
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
-RUN mkdir -p /myapp/backend
+RUN mkdir -p /app/backend
 WORKDIR /app/backend
 COPY Gemfile /app/backend/Gemfile
 COPY Gemfile.lock /app/backend/Gemfile.lock
