@@ -1,0 +1,29 @@
+version: '3'
+services:
+  db:
+    image: postgres:11.6
+    container_name: netshowme_dev_test_db
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+  backend:
+    build: ./backend
+    container_name: netshowme_dev_test_backend
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - ./backend:/app/backend
+    ports:
+      - "3001:3000"
+    depends_on:
+      - db
+  frontend:
+    image: "node:13.6-alpine"
+    container_name: netshowme_dev_test_frontend
+    user: "node"
+    working_dir: /app/frontend
+    volumes:
+      - ./frontend:/app/frontend
+    ports:
+      - "3000:3000"
+    command: "yarn start"
+    depends_on:
+      - backend
