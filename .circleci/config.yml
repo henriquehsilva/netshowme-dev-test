@@ -29,7 +29,8 @@ jobs:
           name: bundle install
           command: |
             cd backend
-            bundle check --path=vendor/bundle || bundle install --no-deployment --path=vendor/bundle --jobs=4 --retry=3
+            gem install bundler:2.1.3
+            bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
       - save_cache:
           paths:
             - ~/netshowme-dev-test/backend/vendor/bundle
