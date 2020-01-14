@@ -7,7 +7,7 @@ services:
       - ./tmp/db:/var/lib/postgresql/data
   backend:
     build: ./backend
-    container_name: netshowme_dev_test_backend
+    container_name: netshowme_dev_test_api
     command: bundle exec rails s -p 3000 -b '0.0.0.0'
     volumes:
       - ./backend:/app/backend
@@ -17,7 +17,7 @@ services:
       - db
   frontend:
     image: "node:13.6-alpine"
-    container_name: netshowme_dev_test_frontend
+    container_name: netshowme_dev_test_client
     user: "node"
     working_dir: /app/frontend
     volumes:
