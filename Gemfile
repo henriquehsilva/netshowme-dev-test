@@ -10,13 +10,18 @@ gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 4.0'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.7'
-gem 'devise', '~> 4.2'
+gem 'devise', '~> 4.7', '>= 4.7.1'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 group :development, :test do
   %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
     gem lib, git: "https://github.com/rspec/#{lib}.git", branch: 'master'
   end
+  gem 'database_cleaner', '~> 1.7'
+  gem 'factory_bot_rails', '~> 5.1', '>= 5.1.1'
+  gem 'faker', '~> 2.10', '>= 2.10.1'
+  gem 'capybara', '~> 3.30'
+  gem 'selenium-webdriver', '~> 3.142', '>= 3.142.7'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
