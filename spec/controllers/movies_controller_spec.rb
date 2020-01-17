@@ -1,13 +1,20 @@
 require 'rails_helper'
 
 RSpec.describe MoviesController, type: :controller do
+  describe 'GET #index' do
+    let(:call_request) { get :index }
 
-  let(:valid_session) { {} }
+    context 'when user signed in' do
+      login_user
+      before(:each) { call_request }
 
-  describe "GET #index" do
-    it "returns a success response" do
-      get :index, params: {}, session: valid_session
-      expect(response).to have_http_status(302)
+      it { expect(response).to have_http_status(200) }
+    end
+
+    context 'when user not signed in' do
+      before(:each) { call_request }
+
+      it { expect(response).to have_http_status(302) }
     end
   end
 end
