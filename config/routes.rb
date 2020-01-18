@@ -3,5 +3,8 @@ Rails.application.routes.draw do
 
   root to: 'movies#index'
 
+  resources :users do
+    resource :movies
+  end
   get 'movies/index'
 end
