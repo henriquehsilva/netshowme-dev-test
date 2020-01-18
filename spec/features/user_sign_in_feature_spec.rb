@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.feature 'User sign in', :type => :feature do
-  let(:user) { FactoryBot.create(:user) }
+RSpec.feature 'User sign in', type: :feature do
+  let(:user) { create(:user) }
 
   scenario 'successfully from sign in page and sees movie dashboard' do
     visit user_session_path

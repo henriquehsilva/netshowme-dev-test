@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.feature 'User sign in', :type => :feature do
-  let(:user) { FactoryBot.create(:user) }
+RSpec.feature 'Create new movie', type: :feature do
+  let(:user) { create(:user) }
 
-  scenario 'successfully from sign in page and sees movie dashboard' do
-    login_as user, scope: :user
+  scenario 'successfully create new movie' do
+    login_as(user, scope: :user)
     visit new_user_movies_path(user.id)
 
     fill_in 'name', with: Faker::Lorem.sentence
