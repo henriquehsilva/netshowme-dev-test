@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>App</title>
+    <title>Netshow.me Dev Test</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -9,7 +9,33 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class="bg-light vsc-initialized" cz-shortcut-listen="true">
+
+    <!-- Navigation -->
+    <nav class="navbar justify-content-between navbar-dark bg-dark">
+      <a class="navbar-brand mr-auto mr-lg-0" href="#">Netshow.me Dev Test</a>
+
+      <ul class="nav">
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to "Criar novo vídeo", new_user_movies_path(current_user.id), class: "btn btn-dark", type: "button" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Sair", destroy_user_session_path, method: :delete, class: "btn btn-outline-warning", type: "button" %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+              <%= link_to "Registre-se", new_registration_path(resource_name), class: "btn btn-dark", type: "button" %><br />
+            <% end %>
+            <%- if controller_name != 'sessions' %>
+              <%= link_to "Log in", new_session_path(resource_name), class: "btn btn-dark", type: "button" %><br />
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </nav>
+
     <%= render 'layouts/messages' %>
     <%= yield %>
   </body>
