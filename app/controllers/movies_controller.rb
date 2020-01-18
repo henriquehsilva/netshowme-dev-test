@@ -10,7 +10,7 @@ class MoviesController < ApplicationController
     @movie = Movie.new(movie_params)
 
     if @movie.save
-      redirect_to movies_index_path
+      render :index, status: :created
     else
       render :new
     end
