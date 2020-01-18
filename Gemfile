@@ -14,6 +14,7 @@ gem 'devise', '~> 4.7', '>= 4.7.1'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'bootstrap', '~> 4.4', '>= 4.4.1'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.5'
+gem 'travis', '~> 1.8', '>= 1.8.8'
 
 group :development, :test do
   %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
