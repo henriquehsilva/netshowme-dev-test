@@ -4,12 +4,12 @@
       <%= form_with scope: :movie, url: user_movies_path,local: true, class: 'form-signin' do |f| %>
         <div class="form-label-group">
           <%= f.label :name %><br />
-          <%= f.text_field :name, class: "form-control", placeholder: "Titulo do Vídeo", required: true %>
+          <%= f.text_field :name, id: "name", class: "form-control", placeholder: "Titulo do Vídeo", required: true %>
         </div>
 
         <div class="form-label-group">
           <%= f.label :url %><br />
-          <%= f.text_field :url, class: "form-control", placeholder: "Url com uma extensão .m3u8", required: true %>
+          <%= f.text_field :url, id: "url", class: "form-control", placeholder: "Url com uma extensão .m3u8", required: true %>
         </div><br />
 
         <div class="actions">
