@@ -1,6 +1,9 @@
 language: ruby
 rvm: 2.6.5
 before_install:
+- sudo apt-get update
+- sudo /etc/init.d/postgresql stop
+- sudo /etc/init.d/postgresql start 11
 - gem update --system
 - gem install bundler
 install:
@@ -9,3 +12,15 @@ script:
 - bundle install
 - bundle exec rspec
 - ruby request.rb
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
+  - cp config/database.yml.travis config/database.yml
+addons:
+  postgresql: "11"
+  apt:
+    packages:
+    - postgresql-11
+    - postgresql-client-11
+env:
+  global:
+  - PGPORT=5433
