@@ -2,8 +2,8 @@ language: ruby
 rvm: 2.6.5
 before_install:
 - sudo apt-get update
-- sudo /etc/init.d/postgresql stop
-- sudo /etc/init.d/postgresql start
+- service postgresql stop
+- service postgresql start
 - gem update --system
 - gem install bundler
 install:
