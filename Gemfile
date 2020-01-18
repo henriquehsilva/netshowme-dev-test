@@ -25,6 +25,7 @@ group :development, :test do
   gem 'faker', '~> 2.10', '>= 2.10.1'
   gem 'capybara', '~> 3.30'
   gem 'selenium-webdriver', '~> 3.142', '>= 3.142.7'
+  gem 'shoulda-matchers', '~> 4.2'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
