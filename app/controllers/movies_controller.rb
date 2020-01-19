@@ -1,8 +1,9 @@
 class MoviesController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
   before_action :set_movie, only: %i[edit show update destroy]
 
   def index
-    @movies = current_user.movies
+    @movies = user_signed_in? ? current_user.movies : Movie.all
   end
 
   def show; end
@@ -16,7 +17,7 @@ class MoviesController < ApplicationController
 
     if @movie.save
 
-      redirect_to movies_index_path
+      redirect_to movies_path
     else
       render :new
     end
@@ -24,7 +25,7 @@ class MoviesController < ApplicationController
 
   def update
     if @movie.update(movie_params)
-      redirect_to movies_index_path
+      redirect_to movies_path
     else
       render :edit
     end
