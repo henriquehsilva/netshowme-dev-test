@@ -1,24 +1,42 @@
 class MoviesController < ApplicationController
+  before_action :set_movie, only: %i[edit show update destroy]
+
   def index
+    @movies = current_user.movies
   end
 
-  def new
-    @movie = Movie.new
-  end
+  def show; end
+
+  def new; end
+
+  def edit; end
 
   def create
-    @movie = Movie.new(movie_params)
+    @movie = current_user.movies.new(movie_params)
 
     if @movie.save
-      render :index, status: :created
+
+      redirect_to movies_index_path
     else
       render :new
+    end
+  end
+
+  def update
+    if @movie.update(movie_params)
+      redirect_to movies_index_path
+    else
+      render :edit
     end
   end
 
   private
 
   def movie_params
-    params.require(:movie).permit(:name, :url).merge( user_id: params[:user_id])
+    params.require(:movie).permit(:name, :url, :poster).merge( user_id: params[:user_id])
+  end
+
+  def set_movie
+    @movie = Movie.find(params[:id])
   end
 end
