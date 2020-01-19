@@ -12,7 +12,7 @@ RSpec.describe MoviesController, type: :controller do
 
     context 'when user not signed in' do
 
-      it { expect(subject).to have_http_status(302) }
+      it { expect(subject).to have_http_status(200) }
     end
   end
 
@@ -31,7 +31,7 @@ RSpec.describe MoviesController, type: :controller do
     }
 
     context 'with valid attributes' do
-      let(:movie_params) {{ name: Faker::Lorem.sentence, url: Faker::Internet.url }}
+      let(:movie_params) {{ name: Faker::Lorem.sentence, url: Faker::Internet.url, poster: Faker::Internet.url }}
 
       it 'should save the new movie in the database' do
         subject
@@ -39,7 +39,7 @@ RSpec.describe MoviesController, type: :controller do
       end
 
       it 'should redirect to the movies#index page' do
-        expect(subject).to redirect_to(movies_index_path)
+        expect(subject).to redirect_to(movies_path)
       end
     end
 
