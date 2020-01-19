@@ -5,7 +5,10 @@
   <p class="card-text"><%= movie.name %></p>
   <div class="d-flex justify-content-between align-items-center">
     <div class="btn-group-lg">
-      <%= link_to "Editar", edit_user_movies_path(current_user.id, id: movie.id), class: "btn btn-block btn-outline-secondary", type: "button" %>
+      <%= link_to "Voltar", movies_path, class: "btn btn-outline-secondary", type: "button"%>
+      <% if user_signed_in? %>
+        <%= link_to "Editar", edit_user_movies_path(current_user.id, id: movie.id), class: "btn btn-outline-secondary", type: "button" %>
+      <% end %>
     </div>
     <p id="here" class="text-muted">
       <b id="views"><%= movie.views.to_s %></b>

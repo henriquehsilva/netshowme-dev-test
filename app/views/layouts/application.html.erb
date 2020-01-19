@@ -21,11 +21,10 @@
       <a class="navbar-brand mr-auto mr-lg-0" href="#">Netshow.me Dev Test</a>
 
       <ul class="nav">
-        <% if user_signed_in? %>
           <li class="nav-item">
-            <%= link_to "Painel de vídeos", movies_index_path, class: "btn btn-dark", type: "button" %>
+            <%= link_to "Painel de vídeos", movies_path, class: "btn btn-dark", type: "button" %>
           </li>
-
+        <% if user_signed_in? %>
           <li class="nav-item">
             <%= link_to "Criar novo vídeo", new_user_movies_path(current_user.id), class: "btn btn-dark", type: "button" %>
           </li>
@@ -34,12 +33,10 @@
           </li>
         <% else %>
           <li class="nav-item">
-            <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-              <%= link_to "Registre-se", new_registration_path(resource_name), class: "btn btn-dark", type: "button" %><br />
-            <% end %>
-            <%- if controller_name != 'sessions' %>
-              <%= link_to "Log in", new_session_path(resource_name), class: "btn btn-dark", type: "button" %><br />
-            <% end %>
+            <%= link_to "Registre-se", new_user_registration_path, class: "btn btn-dark", type: "button" %><br />
+          </li>
+          <li class="nav-item">
+            <%= link_to "Log in", new_user_session_path, class: "btn btn-dark", type: "button" %><br />
           </li>
         <% end %>
       </ul>
