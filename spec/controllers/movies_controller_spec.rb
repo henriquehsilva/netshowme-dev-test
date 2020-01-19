@@ -38,11 +38,9 @@ RSpec.describe MoviesController, type: :controller do
         expect(user_movies.empty?).to be_falsey
       end
 
-      it 'should redirect to the movies#show page' do
-        expect(subject).to render_template(:index)
+      it 'should redirect to the movies#index page' do
+        expect(subject).to redirect_to(movies_index_path)
       end
-
-      it { expect(subject).to have_http_status(201) }
     end
 
     context 'with invalid attributes' do
@@ -56,8 +54,6 @@ RSpec.describe MoviesController, type: :controller do
       it 'should render movies#new template' do
         expect(subject).to render_template(:new)
       end
-
-      it { expect(subject).to have_http_status(200) }
     end
   end
 end
