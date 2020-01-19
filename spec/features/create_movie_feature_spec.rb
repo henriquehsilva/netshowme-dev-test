@@ -11,6 +11,6 @@ RSpec.feature 'Create new movie', type: :feature do
     fill_in 'url', with: Faker::Internet.url
     click_button 'Criar Vídeo'
 
-    expect(page).to have_text('Movies#index')
+    expect(page).to have_text('Netshow.me Dev Test')
   end
 end

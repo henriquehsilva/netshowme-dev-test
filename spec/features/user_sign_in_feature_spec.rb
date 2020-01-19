@@ -9,6 +9,6 @@ RSpec.feature 'User sign in', type: :feature do
     fill_in 'Password', with: user.password
     click_button 'Log in'
 
-    expect(page).to have_text('Movies#index')
+    expect(page).to have_text('Netshow.me Dev Test')
   end
 end
