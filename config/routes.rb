@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root to: 'movies#index'
 
   resources :users do
-    resource :movies
+    resource :movies, only: [:new, :create, :edit, :update]
   end
-  get 'movies/index'
+  resources :movies, only: [:index, :show]
 end
