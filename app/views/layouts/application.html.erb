@@ -6,17 +6,26 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://vjs.zencdn.net/7.6.6/video-js.css" rel="stylesheet" />
+
+    <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+    <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+    <script src="https://vjs.zencdn.net/7.6.6/video.js"></script>
   </head>
 
   <body class="bg-light vsc-initialized" cz-shortcut-listen="true">
-
     <!-- Navigation -->
     <nav class="navbar justify-content-between navbar-dark bg-dark">
       <a class="navbar-brand mr-auto mr-lg-0" href="#">Netshow.me Dev Test</a>
 
       <ul class="nav">
         <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to "Painel de vídeos", movies_index_path, class: "btn btn-dark", type: "button" %>
+          </li>
+
           <li class="nav-item">
             <%= link_to "Criar novo vídeo", new_user_movies_path(current_user.id), class: "btn btn-dark", type: "button" %>
           </li>
@@ -35,7 +44,6 @@
         <% end %>
       </ul>
     </nav>
-
     <%= render 'layouts/messages' %>
     <%= yield %>
   </body>
