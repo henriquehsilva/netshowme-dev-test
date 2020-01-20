@@ -4,7 +4,7 @@ jobs:
   bundle-install:
     working_directory: ~/repo
     docker:
-      - image: circleci/ruby:2.6.0-node-browsers
+      - image: circleci/ruby:2.6.5-node-browsers
         environment:
           BUNDLE_JOBS: 4
           BUNDLE_RETRY: 3
@@ -31,7 +31,7 @@ jobs:
   test:
     working_directory: ~/repo
     docker:
-      - image: circleci/ruby:2.6.0-node-browsers
+      - image: circleci/ruby:2.6.5-node-browsers
         environment:
           BUNDLE_JOBS: 4
           BUNDLE_RETRY: 3
