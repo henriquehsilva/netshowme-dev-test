@@ -14,7 +14,7 @@ script:
   - bundle install
   - bundle exec rails webpacker:compile
   - bundle exec rails spec
-  - bundle exec rake $TASKS
+  # - bundle exec rake $TASKS
 before_script:
   - psql --version
   - psql -c 'CREATE DATABASE travis_ci_test;' -U postgres
