@@ -44,7 +44,7 @@ RSpec.describe MoviesController, type: :controller do
     end
 
     context 'with invalid attributes' do
-      let(:movie_params) {{ name: Faker::Lorem.sentence, url: '' }}
+      let(:movie_params) {{ name: Faker::Lorem.sentence, url: '', poster: '' }}
 
       it 'should not save the new movie in the database' do
         subject
@@ -53,6 +53,52 @@ RSpec.describe MoviesController, type: :controller do
 
       it 'should render movies#new template' do
         expect(subject).to render_template(:new)
+      end
+    end
+  end
+
+  describe 'PUT #update' do
+    login_user
+    let(:current_user) { User.first }
+    let(:user_id) { current_user.id }
+    let!(:movie) { FactoryBot.create(:movie, user_id: user_id) }
+    let(:user_movies) { current_user.movies }
+
+    subject { put :update,
+      params: {
+        use_route: user_movies_path(user_id, movie.id),
+        movie: movie_params,
+        user_id: user_id,
+        id: movie.id
+      }
+    }
+
+    context 'with valid attributes' do
+
+      let(:movie_params) {{ name: Faker::Lorem.sentence, url: Faker::Internet.url, poster: Faker::Internet.url }}
+
+      it 'should edit the name of the movie in the database' do
+        subject
+        persisted_movie = current_user.movies.first
+        expect(persisted_movie.name).not_to eq(movie.name)
+      end
+
+      it 'should redirect to the movies#index page' do
+        expect(subject).to redirect_to(movies_path)
+      end
+    end
+
+    context 'with invalid attributes' do
+      let(:movie_params) {{ name: Faker::Lorem.sentence, url: '', poster: '' }}
+
+      it 'should not edit the name of the movie in the database' do
+        subject
+        persisted_movie = current_user.movies.first
+        expect(persisted_movie.name).to eq(movie.name)
+      end
+
+      it 'should render movies#new template' do
+        expect(subject).to render_template(:edit)
       end
     end
   end
