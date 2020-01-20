@@ -1,5 +1,5 @@
 class Movie < ApplicationRecord
   belongs_to :user
 
-  validates :name, :url, presence: true
+  validates :name, :url, :poster, presence: true
 end
