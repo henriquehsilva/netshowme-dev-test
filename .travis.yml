@@ -15,8 +15,10 @@ script:
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
   - cp config/database.yml.travis config/database.yml
+services:
+  - postgresql
 addons:
-  postgresql: "11"
+  postgresql: 11
   apt:
     packages:
     - postgresql-11
