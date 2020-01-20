@@ -26,36 +26,36 @@ jobs:
           root: .
           paths:
             - vendor/bundle
-test:
-  working_directory: ~/repo
-  docker:
-    - image: circleci/ruby:2.6.0-node-browsers
-      environment:
-        BUNDLE_JOBS: 4
-        BUNDLE_RETRY: 3
-        BUNDLE_PATH: vendor/bundle
-        DATABASE_URL: "postgresql://root@localhost/netshowme_dev_test_db_test?pool=5"
-    - image: circleci/postgres:9.3-alpine-ram
-      environment:
-        POSTGRES_USER: root
-        POSTGRES_DB: my_project_test
-  steps:
-    - checkout
-    - attach_workspace:
-        at: ~/repo
-    - run: dockerize -wait tcp://localhost:5433 -timeout 1m
-    - run: cp config/secrets.yml{.example,}
-    - run: cp config/database.yml{.example,}
-    - run: bundle install
-    - run: RAILS_ENV=test bundle exec rake db:schema:load --trace
-    - run: |
-        mkdir -p ~/repo/tmp/test-results/rspec
-        bundle exec rspec --profile 10 --format RspecJunitFormatter --out ~/repo/tmp/test-results/rspec/results.xml --format progress
-    - store_artifacts:
-        path: ~/repo/tmp/screenshots
-        destination: test-screenshots
-    - store_test_results:
-        path: ~/repo/tmp/test-results
+  test:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/ruby:2.6.0-node-browsers
+        environment:
+          BUNDLE_JOBS: 4
+          BUNDLE_RETRY: 3
+          BUNDLE_PATH: vendor/bundle
+          DATABASE_URL: "postgresql://root@localhost/netshowme_dev_test_db_test?pool=5"
+      - image: circleci/postgres:9.3-alpine-ram
+        environment:
+          POSTGRES_USER: root
+          POSTGRES_DB: my_project_test
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/repo
+      - run: dockerize -wait tcp://localhost:5433 -timeout 1m
+      - run: cp config/secrets.yml{.example,}
+      - run: cp config/database.yml{.example,}
+      - run: bundle install
+      - run: RAILS_ENV=test bundle exec rake db:schema:load --trace
+      - run: |
+          mkdir -p ~/repo/tmp/test-results/rspec
+          bundle exec rspec --profile 10 --format RspecJunitFormatter --out ~/repo/tmp/test-results/rspec/results.xml --format progress
+      - store_artifacts:
+          path: ~/repo/tmp/screenshots
+          destination: test-screenshots
+      - store_test_results:
+          path: ~/repo/tmp/test-results
 workflows:
   build:
     jobs:
