@@ -14,6 +14,7 @@ script:
   - bundle install
   - bundle exec rails webpacker:compile
   - bundle exec rails spec
+  - bundle exec rake $TASKS
 before_script:
   - psql --version
   - psql -c 'CREATE DATABASE travis_ci_test;' -U postgres
@@ -48,5 +49,9 @@ env:
     - PGPORT=5433
     - PGUSER=postgres
     - PGHOST=localhost
-    - CC_TEST_REPORTER_ID=ABC123
+    - CC_TEST_REPORTER_ID=f22ce1fc771ebc76e70b3254fe02703c8c5cdbd142e22c304f914bf707939459
     - CODECOV_TOKEN=9c5ef3b9-cca0-4f8a-985e-921864d9750d
+    - CF_RUN_PERM_SPECS=false
+  matrix:
+    - COVERAGE=true DB=travis_ci_test TASKS=spec:all
+    - TASKS=rubocop
