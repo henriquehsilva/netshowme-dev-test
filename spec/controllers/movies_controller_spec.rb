@@ -62,7 +62,6 @@ RSpec.describe MoviesController, type: :controller do
     let(:current_user) { User.first }
     let(:user_id) { current_user.id }
     let!(:movie) { FactoryBot.create(:movie, user_id: user_id) }
-    let(:user_movies) { current_user.movies }
 
     subject { put :update,
       params: {
@@ -100,6 +99,30 @@ RSpec.describe MoviesController, type: :controller do
       it 'should render movies#new template' do
         expect(subject).to render_template(:edit)
       end
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    login_user
+    let(:current_user) { User.first }
+    let(:user_id) { current_user.id }
+    let!(:movie) { FactoryBot.create(:movie, user_id: user_id) }
+
+    subject { delete :destroy,
+      params: {
+        use_route: user_movies_path(user_id, movie.id),
+        user_id: user_id,
+        id: movie.id
+      }
+    }
+
+    it 'should delete the movie in the database' do
+      subject
+      expect(current_user.movies.empty?).to be_truthy
+    end
+
+    it 'should redirect to the movies#index page' do
+      expect(subject).to redirect_to(movies_path)
     end
   end
 end
