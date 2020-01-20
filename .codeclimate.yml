@@ -2,3 +2,20 @@ plugins:
   eslint:
     enabled: true
     channel: eslint-5
+exclude_patterns:
+  - "spec/"
+  - "!spec/support/helpers"
+  - config/
+  - db/
+  - dist/
+  - features/
+  - "**/node_modules/"
+  - script/
+  - "**/spec/"
+  - "**/test/"
+  - "**/tests/"
+  - Tests/
+  - "**/vendor/"
+  - "**/*_test.go"
+  - "**/*.d.ts"
+  - babel.config.js
