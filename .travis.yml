@@ -49,3 +49,4 @@ env:
     - PGUSER=postgres
     - PGHOST=localhost
     - CC_TEST_REPORTER_ID=ABC123
+    - CODECOV_TOKEN="9c5ef3b9-cca0-4f8a-985e-921864d9750d"
