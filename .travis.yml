@@ -10,7 +10,7 @@ before_install:
 - sudo service postgresql restart 11
 script:
 - bundle install
-- RAILS_ENV=test bundle exec rails webpacker:compile
+- RAILS_ENV=test ./bin/rails webpacker:compile
 - bundle exec rspec
 - ruby request.rb
 before_script:
