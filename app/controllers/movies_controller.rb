@@ -1,10 +1,10 @@
 class MoviesController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
-  before_action :set_movie, only: %i[edit show update destroy]
+  before_action :authenticate_user!, only: %i(new create edit update)
+  before_action :get_movies, only: %i(index destroy)
+  before_action :set_movie_by_user, only: %i(edit update destroy)
+  before_action :set_movie, only: :show
 
-  def index
-    @movies = user_signed_in? ? current_user.movies : Movie.all
-  end
+  def index; end
 
   def show; end
 
@@ -14,9 +14,8 @@ class MoviesController < ApplicationController
 
   def create
     @movie = current_user.movies.new(movie_params)
-
     if @movie.save
-
+      flash[:success] = "Vídeo criado com sucesso!"
       redirect_to movies_path
     else
       render :new
@@ -25,10 +24,17 @@ class MoviesController < ApplicationController
 
   def update
     if @movie.update(movie_params)
+      flash[:success] = "Vídeo editado com sucesso!"
       redirect_to movies_path
     else
       render :edit
     end
+  end
+
+  def destroy
+    @movie.destroy
+    flash[:success] = "Vídeo removido com sucesso!"
+    redirect_to movies_path
   end
 
   private
@@ -39,5 +45,13 @@ class MoviesController < ApplicationController
 
   def set_movie
     @movie = Movie.find(params[:id])
+  end
+
+  def set_movie_by_user
+    @movie = current_user.movies.find(params[:id])
+  end
+
+  def get_movies
+    @movies = user_signed_in? ? current_user.movies : Movie.all
   end
 end
